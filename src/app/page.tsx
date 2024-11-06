@@ -1,10 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import FlickeringGrid from "@/components/ui/flickering-grid";
+import Modal from "@/components/ui/modal";
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <main className="relative min-h-screen w-full bg-[#030303] overflow-hidden">
       {/* Premium Header with Enhanced Glass Effect */}
@@ -102,7 +106,7 @@ export default function Home() {
           transition={{ duration: 1.2, delay: 0.3 }}
           className="text-5xl md:text-7xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50"
         >
-          Reliable Voice Agents.
+          Reliable Voice Agents
         </motion.h1>
 
         {/* Enhanced Description */}
@@ -112,7 +116,7 @@ export default function Home() {
           transition={{ duration: 1.2, delay: 0.6 }}
           className="text-xl md:text-2xl text-center max-w-3xl text-white/40 leading-relaxed mb-16"
         >
-          Accelerate your marketing efforts conversion with our 24/7 AI voice solutions that actually work.
+          Accelerate your marketing efforts conversion with AI voice agents that actually work.
         </motion.p>
 
         {/* Premium CTA Button */}
@@ -127,6 +131,7 @@ export default function Home() {
           className="relative group"
         >
           <button 
+            onClick={() => setIsModalOpen(true)}
             className="relative px-12 py-4 bg-black/20 backdrop-blur-sm border border-white/[0.05] rounded-lg text-white/70 group flex items-center gap-2 transition-all duration-500 overflow-hidden"
             onMouseMove={(e) => {
               const btn = e.currentTarget;
@@ -137,18 +142,6 @@ export default function Home() {
               btn.style.setProperty('--mouse-y', `${y}px`);
             }}
           >
-            {/* Hover glass effect */}
-            <div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-xl bg-white/[0.02]"
-              style={{
-                background: `radial-gradient(
-                  600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-                  rgba(255, 255, 255, 0.04),
-                  transparent 40%
-                )`
-              }}
-            />
-
             <span className="relative z-10 text-lg group-hover:text-white/90 transition-colors duration-500">
               Book a Demo
             </span>
@@ -163,8 +156,26 @@ export default function Home() {
             >
               →
             </motion.span>
+            
+            {/* Hover glass effect */}
+            <div 
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-xl bg-white/[0.02]"
+              style={{
+                background: `radial-gradient(
+                  600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                  rgba(255, 255, 255, 0.04),
+                  transparent 40%
+                )`
+              }}
+            />
           </button>
         </motion.div>
+
+        {/* Modal with Cal Embed */}
+        <Modal 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)} 
+        />
 
         {/* Trust Indicators */}
         <motion.div
@@ -200,11 +211,11 @@ export default function Home() {
             <div className="max-w-7xl mx-auto relative z-10">
               <motion.div 
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 0.4 }}
+                animate={{ opacity: 1 }}
                 transition={{ duration: 1.5 }}
                 className="flex justify-center items-center text-sm text-white/30"
               >
-                Opulent Solutions LTD — Voice Automation Refined
+                © 2024 Opulent Solutions LTD. All Rights Reserved.
               </motion.div>
             </div>
           </div>
