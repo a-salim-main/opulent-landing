@@ -113,3 +113,27 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.15);
 }
+
+/* Dark theme for time and date inputs */
+input[type="time"],
+input[type="date"] {
+  color-scheme: dark;
+}
+
+/* Webkit browsers */
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+/* Firefox */
+input[type="time"],
+input[type="date"] {
+  &::-moz-calendar-picker-indicator {
+    filter: invert(0.8);
+    opacity: 0.5;
+    cursor: pointer;
+  }
+}

@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ 
       success: isValid 
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { 
         success: false,

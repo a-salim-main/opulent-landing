@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, memo } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { 
@@ -10,7 +10,6 @@ import {
   TimeInput,
   TimezoneSelect
 } from "@/components/form";
-import { InfoTooltip } from "@/components/ui/info-tooltip";
 
 export default function TempForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,8 +37,9 @@ export default function TempForm() {
       } else {
         setError("Invalid password");
       }
-    } catch (error) {
+    } catch (err) {
       setError("Something went wrong");
+      console.error(err);
     }
   };
 
@@ -110,9 +110,9 @@ export default function TempForm() {
       }
       
       alert('Form submitted successfully!');
-    } catch (error) {
-      console.error('Submission Error:', error);
-      alert(error instanceof Error ? error.message : 'Failed to submit form. Please try again.');
+    } catch (err) {
+      console.error('Submission Error:', err);
+      alert(err instanceof Error ? err.message : 'Failed to submit form. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

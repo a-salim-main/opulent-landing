@@ -107,7 +107,8 @@ export const TimeInput = ({ label, name, required, tooltip }: TimeInputProps) =>
                 disabled={slot.closed}
                 className="bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-white/90 
                   focus:outline-none focus:ring-2 focus:ring-white/20 disabled:opacity-50
-                  [color-scheme:dark]"
+                  [color-scheme:dark] appearance-none"
+                style={{ colorScheme: 'dark' }}
               />
               <input
                 type="time"
@@ -116,7 +117,8 @@ export const TimeInput = ({ label, name, required, tooltip }: TimeInputProps) =>
                 disabled={slot.closed}
                 className="bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-white/90 
                   focus:outline-none focus:ring-2 focus:ring-white/20 disabled:opacity-50
-                  [color-scheme:dark]"
+                  [color-scheme:dark] appearance-none"
+                style={{ colorScheme: 'dark' }}
               />
               <button
                 type="button"
@@ -142,7 +144,6 @@ export const TimeInput = ({ label, name, required, tooltip }: TimeInputProps) =>
           
           {/* Standard Holidays */}
           <Select
-            label="Select Standard Holidays"
             options={HOLIDAYS}
             value={selectedHolidays}
             onChange={handleHolidayChange}
@@ -158,7 +159,9 @@ export const TimeInput = ({ label, name, required, tooltip }: TimeInputProps) =>
                 value={customDate}
                 onChange={(e) => setCustomDate(e.target.value)}
                 className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white/90 
-                  focus:outline-none focus:ring-2 focus:ring-white/20"
+                  focus:outline-none focus:ring-2 focus:ring-white/20
+                  [color-scheme:dark] appearance-none w-[200px]"
+                style={{ colorScheme: 'dark' }}
               />
               <input
                 type="text"
