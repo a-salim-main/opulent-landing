@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server';
 
+// Replace this URL with your actual n8n webhook URL
+const WEBHOOK_URL = 'https://opulent.app.n8n.cloud/webhook/add-client';
+// or something like: 'https://n8n.yourdomain.com/webhook/xxxxx-xxxxx-xxxxx'
+
 export async function POST(request: Request) {
   try {
     const data = await request.json();
     console.log('Sending data to n8n:', data);
 
-    const response = await fetch(process.env.N8N_WEBHOOK_URL!, {
+    const response = await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
