@@ -264,6 +264,25 @@ export default function TempForm() {
             {/* Business Details */}
             <FormSection title="Business Details">
               <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Input
+                    label="Internal Notification Number"
+                    name="notificationNumber"
+                    required
+                    type="tel"
+                    placeholder="+18148220152"
+                    tooltip="Number for receiving booking confirmations, transfer notifications, and other notifications"
+                  />
+
+                  <Input
+                    label="Industry/Niche"
+                    name="industry"
+                    required
+                    placeholder="e.g., Fitness & Wellness"
+                    tooltip="Specify your business's primary industry or niche market"
+                  />
+                </div>
+
                 <Input
                   label="Location Address"
                   name="locationAddress"
