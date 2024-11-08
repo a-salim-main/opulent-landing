@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { InfoTooltip } from "@/components/ui/info-tooltip";
 import { 
   FormSection,
   Input,
@@ -16,6 +17,9 @@ export default function TempForm() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [transferDestinations, setTransferDestinations] = useState([
+    { id: 1 } // Start with one destination
+  ]);
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +45,14 @@ export default function TempForm() {
       setError("Something went wrong");
       console.error(err);
     }
+  };
+
+  const addTransferDestination = () => {
+    if (transferDestinations.length >= 10) {
+      alert("We recommend not exceeding 10 transfer destinations for optimal AI performance.");
+      return;
+    }
+    setTransferDestinations([...transferDestinations, { id: transferDestinations.length + 1 }]);
   };
 
   if (!isAuthenticated) {
@@ -353,6 +365,107 @@ If someone asks about the pricing, just say that it's on the website."
                       placeholder="+16892654681"
                       tooltip="Twilio's Number that people will call to be answered by AI - In E.164 Format (CAN BE THE SAME AS OUTBOUND CALLER ID)"
                     />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg text-white/80">Transfer Destinations</h3>
+                    <InfoTooltip content="Configure where calls should be transferred based on specific scenarios" />
+                  </div>
+                  
+                  <div className="space-y-4">
+                    {transferDestinations.map((destination, index) => (
+                      <div 
+                        key={destination.id}
+                        className="group grid grid-cols-1 md:grid-cols-[1.5fr,100px,2fr] gap-4 bg-black/20 p-4 rounded-lg border border-white/[0.08]"
+                      >
+                        <div className="space-y-2">
+                          <Input
+                            label={`Transfer Number ${destination.id}`}
+                            name={`transferNumber${destination.id}`}
+                            required={index === 0}
+                            type="tel"
+                            placeholder="+18148220156"
+                            tooltip="Phone number in E.164 format"
+                          />
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <Input
+                            label="Extension"
+                            name={`transferExtension${destination.id}`}
+                            type="text"
+                            placeholder={destination.id.toString()}
+                            tooltip="Optional extension to dial"
+                          />
+                        </div>
+
+                        <div className="relative space-y-2">
+                          <Textarea
+                            label="Transfer Instructions"
+                            name={`transferInstructions${destination.id}`}
+                            required={index === 0}
+                            rows={3}
+                            placeholder="Provide clear instructions for when the AI should transfer to this number (e.g., 'Transfer to this number when...')"
+                            tooltip="Clear instructions for when the AI should transfer to this number"
+                          />
+                          
+                          {index > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => setTransferDestinations(prev => prev.filter(d => d.id !== destination.id))}
+                              className="absolute -right-2 -top-2 opacity-0 group-hover:opacity-100 transition-opacity
+                                p-1 bg-red-500/10 hover:bg-red-500/20 rounded-full text-red-400/70 hover:text-red-400"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <path d="M18 6L6 18M6 6l12 12" />
+                              </svg>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+
+                    {transferDestinations.length < 10 && (
+                      <button
+                        type="button"
+                        onClick={addTransferDestination}
+                        className="w-full px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 
+                          rounded-lg text-white/70 transition-all duration-200 flex items-center justify-center gap-2"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 5v14M5 12h14" />
+                        </svg>
+                        Add Transfer Destination
+                      </button>
+                    )}
+
+                    {transferDestinations.length >= 5 && (
+                      <p className="text-amber-400/70 text-sm">
+                        ⚠️ We recommend keeping transfer destinations under 10 for optimal AI performance
+                      </p>
+                    )}
                   </div>
                 </div>
 
